@@ -1,8 +1,6 @@
-import type { BookingRequest } from "@/types";
+import type { BookingRequest, BookingResult } from "@/types";
+import { submitBookingFn } from "@/functions/booking";
 
-// TODO: conectar con API de reservas
-export async function submitBooking(data: BookingRequest): Promise<{ ok: true }> {
-  console.log("[booking] submitBooking", data);
-  await new Promise((r) => setTimeout(r, 400));
-  return { ok: true };
+export async function submitBooking(data: BookingRequest): Promise<BookingResult> {
+  return submitBookingFn({ data });
 }

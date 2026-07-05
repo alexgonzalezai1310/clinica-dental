@@ -30,10 +30,19 @@ export interface BookingRequest {
   phone: string;
   email: string;
   treatment: string;
-  preferredDate: string;
-  timeSlot: "morning" | "afternoon";
+  date: string; // YYYY-MM-DD
+  time: string; // HH:mm
   comments?: string;
 }
+
+export interface SlotSuggestion {
+  date: string; // YYYY-MM-DD
+  time: string; // HH:mm
+}
+
+export type BookingResult =
+  | { status: "confirmed"; date: string; time: string }
+  | { status: "conflict"; suggestions: SlotSuggestion[] };
 
 export interface ChatMessage {
   role: "user" | "assistant";

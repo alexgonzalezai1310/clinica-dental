@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { services } from "@/data/services";
 import { submitBooking } from "@/lib/booking";
-import type { BookingRequest } from "@/types";
+import type { BookingRequest, SlotSuggestion } from "@/types";
 import { toast } from "sonner";
 
 type Errors = Partial<Record<keyof BookingRequest, string>>;
@@ -16,50 +18,79 @@ function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function isWeekday(iso: string) {
-  const d = new Date(iso + "T00:00:00");
-  const day = d.getDay();
-  return day >= 1 && day <= 5;
+function dayOfWeek(iso: string) {
+  return new Date(iso + "T00:00:00").getDay();
 }
 
+function isOpenDay(iso: string) {
+  return dayOfWeek(iso) !== 0; // domingos cerrado
+}
+
+function timesFor(dateISO: string): string[] {
+  const times: string[] = [];
+  for (let m = 9 * 60; m < 14 * 60; m += 30) times.push(toTime(m));
+  if (dateISO && dayOfWeek(dateISO) === 6) return times; // sábado: solo mañana
+  for (let m = 15 * 60; m < 20 * 60; m += 30) times.push(toTime(m));
+  return times;
+}
+
+function toTime(min: number) {
+  return `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
+}
+
+function suggestionLabel(s: SlotSuggestion) {
+  return `${format(new Date(s.date + "T00:00:00"), "EEE d MMM", { locale: es })} · ${s.time}`;
+}
+
+const EMPTY_FORM: BookingRequest = {
+  fullName: "",
+  phone: "",
+  email: "",
+  treatment: "",
+  date: "",
+  time: "",
+  comments: "",
+};
+
 export function BookingForm({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
-  const [form, setForm] = useState<BookingRequest>({
-    fullName: "",
-    phone: "",
-    email: "",
-    treatment: "",
-    preferredDate: "",
-    timeSlot: "morning",
-    comments: "",
-  });
+  const [form, setForm] = useState<BookingRequest>(EMPTY_FORM);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
+  const [suggestions, setSuggestions] = useState<SlotSuggestion[] | null>(null);
 
   function update<K extends keyof BookingRequest>(k: K, v: BookingRequest[K]) {
     setForm((f) => ({ ...f, [k]: v }));
+    if (k === "date" || k === "time") setSuggestions(null);
   }
 
-  function validate(): boolean {
+  function validate(candidate: BookingRequest): boolean {
     const e: Errors = {};
-    if (form.fullName.trim().length < 3) e.fullName = "Introduce tu nombre completo";
-    if (!/^[+\d\s()-]{7,}$/.test(form.phone)) e.phone = "Teléfono no válido";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email no válido";
-    if (!form.treatment) e.treatment = "Selecciona un tratamiento";
-    if (!form.preferredDate) e.preferredDate = "Selecciona una fecha";
-    else if (!isWeekday(form.preferredDate)) e.preferredDate = "Solo días laborables (L-V)";
+    if (candidate.fullName.trim().length < 3) e.fullName = "Introduce tu nombre completo";
+    if (!/^[+\d\s()-]{7,}$/.test(candidate.phone)) e.phone = "Teléfono no válido";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate.email)) e.email = "Email no válido";
+    if (!candidate.treatment) e.treatment = "Selecciona un tratamiento";
+    if (!candidate.date) e.date = "Selecciona una fecha";
+    else if (!isOpenDay(candidate.date)) e.date = "Los domingos cerramos";
+    if (!candidate.time) e.time = "Selecciona una hora";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
-  async function onSubmit(ev: React.FormEvent) {
-    ev.preventDefault();
-    if (!validate()) return;
+  async function book(candidate: BookingRequest) {
+    if (!validate(candidate)) return;
     setSubmitting(true);
     try {
-      await submitBooking(form);
-      toast.success("Solicitud recibida, te contactaremos en breve");
-      onOpenChange(false);
-      setForm({ fullName: "", phone: "", email: "", treatment: "", preferredDate: "", timeSlot: "morning", comments: "" });
+      const result = await submitBooking(candidate);
+      if (result.status === "confirmed") {
+        toast.success(
+          `Cita confirmada: ${format(new Date(result.date + "T00:00:00"), "EEEE d 'de' MMMM", { locale: es })} a las ${result.time}`,
+        );
+        onOpenChange(false);
+        setForm(EMPTY_FORM);
+        setSuggestions(null);
+      } else {
+        setSuggestions(result.suggestions);
+      }
     } catch {
       toast.error("No se pudo enviar. Inténtalo de nuevo.");
     } finally {
@@ -67,12 +98,25 @@ export function BookingForm({ open, onOpenChange }: { open: boolean; onOpenChang
     }
   }
 
+  async function onSubmit(ev: React.FormEvent) {
+    ev.preventDefault();
+    await book(form);
+  }
+
+  // Reservar directamente la alternativa propuesta (se revalida en el servidor)
+  async function acceptSuggestion(s: SlotSuggestion) {
+    const candidate = { ...form, date: s.date, time: s.time };
+    setForm(candidate);
+    setSuggestions(null);
+    await book(candidate);
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg max-h-[92vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="font-serif text-2xl">Reserva tu cita</DialogTitle>
-          <DialogDescription>Te contactamos en menos de 24 h para confirmar.</DialogDescription>
+          <DialogDescription>Comprobamos la agenda al momento y confirmamos tu hueco.</DialogDescription>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-4 mt-2" noValidate>
           <div className="space-y-1.5">
@@ -106,27 +150,59 @@ export function BookingForm({ open, onOpenChange }: { open: boolean; onOpenChang
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="preferredDate">Fecha preferida</Label>
-              <Input id="preferredDate" type="date" min={todayISO()} value={form.preferredDate} onChange={(e) => update("preferredDate", e.target.value)} />
-              {errors.preferredDate && <p className="text-xs text-destructive">{errors.preferredDate}</p>}
+              <Label htmlFor="date">Fecha</Label>
+              <Input id="date" type="date" min={todayISO()} value={form.date} onChange={(e) => update("date", e.target.value)} />
+              {errors.date && <p className="text-xs text-destructive">{errors.date}</p>}
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="timeSlot">Franja horaria</Label>
-              <Select value={form.timeSlot} onValueChange={(v) => update("timeSlot", v as "morning" | "afternoon")}>
-                <SelectTrigger id="timeSlot"><SelectValue /></SelectTrigger>
+              <Label htmlFor="time">Hora</Label>
+              <Select value={form.time} onValueChange={(v) => update("time", v)}>
+                <SelectTrigger id="time"><SelectValue placeholder="Elige hora" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="morning">Mañana (9:00–14:00)</SelectItem>
-                  <SelectItem value="afternoon">Tarde (15:00–20:00)</SelectItem>
+                  {timesFor(form.date).map((t) => (
+                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
+              {errors.time && <p className="text-xs text-destructive">{errors.time}</p>}
             </div>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="comments">Comentarios (opcional)</Label>
             <Textarea id="comments" rows={3} value={form.comments} onChange={(e) => update("comments", e.target.value)} />
           </div>
+
+          {suggestions && (
+            <div className="rounded-xl border border-border bg-secondary/40 p-4 space-y-3">
+              <p className="text-sm font-medium">
+                Las {form.time} de ese día ya está ocupada. Te proponemos el hueco libre más cercano:
+              </p>
+              {suggestions.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {suggestions.map((s) => (
+                    <Button
+                      key={`${s.date}-${s.time}`}
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="rounded-full"
+                      disabled={submitting}
+                      onClick={() => acceptSuggestion(s)}
+                    >
+                      {suggestionLabel(s)}
+                    </Button>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  No quedan huecos próximos. Llámanos al 900 123 456 y te buscamos sitio.
+                </p>
+              )}
+            </div>
+          )}
+
           <Button type="submit" disabled={submitting} className="w-full rounded-full">
-            {submitting ? "Enviando…" : "Solicitar cita"}
+            {submitting ? "Comprobando agenda…" : "Solicitar cita"}
           </Button>
         </form>
       </DialogContent>
