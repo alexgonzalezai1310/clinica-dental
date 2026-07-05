@@ -32,4 +32,16 @@ Requiere la variable de entorno:
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-Sin la clave configurada, el chat sigue funcionando en modo degradado: responde las FAQs por coincidencia de palabras clave y remite al teléfono para el resto.
+Sin la clave configurada, el chat sigue funcionando: si la app corre en Cloudflare Workers usa el binding gratuito de Workers AI (Llama 3.3, declarado en `wrangler.jsonc`), y como último recurso responde las FAQs por coincidencia de palabras clave.
+
+### Email de confirmación de cita
+
+Al confirmarse una reserva (desde el formulario o desde el chat) se envía un email de confirmación al cliente vía [Brevo](https://www.brevo.com) (tier gratuito: 300 emails/día). Variables de entorno del Worker:
+
+```sh
+export BREVO_API_KEY=xkeysib-...        # clave de API de Brevo
+export BREVO_SENDER_EMAIL=citas@...     # remitente verificado en Brevo
+export BREVO_SENDER_NAME="Clínica ..."  # opcional
+```
+
+Sin configurar, la reserva funciona igual pero no se envía email (`src/server/email.ts`).

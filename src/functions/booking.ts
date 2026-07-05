@@ -21,5 +21,18 @@ export const submitBookingFn = createServerFn({ method: "POST" })
     if (!isOpenDay(data.date)) {
       throw new Error("La clínica cierra los domingos");
     }
-    return tryBook(data);
+    const result = tryBook(data);
+    if (result.status === "confirmed") {
+      // El email no debe bloquear ni romper la reserva: si falla, la cita
+      // sigue confirmada y queda el aviso en los logs del Worker.
+      const { sendBookingConfirmation } = await import("@/server/email");
+      await sendBookingConfirmation({
+        fullName: data.fullName,
+        email: data.email,
+        treatment: data.treatment,
+        date: result.date,
+        time: result.time,
+      });
+    }
+    return result;
   });

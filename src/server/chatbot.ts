@@ -86,7 +86,7 @@ const tools: Anthropic.Tool[] = [
   },
 ];
 
-function runTool(name: string, input: Record<string, string>): string {
+async function runTool(name: string, input: Record<string, string>): Promise<string> {
   if (name === "consultar_disponibilidad") {
     if (!isOpenDay(input.date)) {
       return JSON.stringify({ open: false, message: "La clínica cierra los domingos" });
@@ -115,6 +115,16 @@ function runTool(name: string, input: Record<string, string>): string {
       date: input.date,
       time: input.time,
     });
+    if (outcome.status === "confirmed") {
+      const { sendBookingConfirmation } = await import("@/server/email");
+      await sendBookingConfirmation({
+        fullName: input.fullName,
+        email: input.email,
+        treatment: input.treatment,
+        date: outcome.date,
+        time: outcome.time,
+      });
+    }
     return JSON.stringify(outcome);
   }
 
@@ -183,13 +193,15 @@ async function answerWithClaude(turns: ChatTurn[]): Promise<string> {
     }
 
     messages.push({ role: "assistant", content: response.content });
-    const toolResults: Anthropic.ToolResultBlockParam[] = response.content
-      .filter((b): b is Anthropic.ToolUseBlock => b.type === "tool_use")
-      .map((b) => ({
-        type: "tool_result",
-        tool_use_id: b.id,
-        content: runTool(b.name, b.input as Record<string, string>),
-      }));
+    const toolResults: Anthropic.ToolResultBlockParam[] = await Promise.all(
+      response.content
+        .filter((b): b is Anthropic.ToolUseBlock => b.type === "tool_use")
+        .map(async (b) => ({
+          type: "tool_result" as const,
+          tool_use_id: b.id,
+          content: await runTool(b.name, b.input as Record<string, string>),
+        })),
+    );
     messages.push({ role: "user", content: toolResults });
   }
 
