@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Luminova">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#93C2EE"/>
+      <stop offset="1" stop-color="#4C86C9"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#bg)"/>
+  <path d="M22 16 C17.5 15 15 18.5 15 24 C15 32 17 41 19.5 48 C20.5 51 23 51.5 24 48 C26.5 42 30 39 32 39 C34 39 37.5 43 40 48 C41 51 43.5 51 44.5 48 C47 41 49 32 49 24 C49 18.5 46.5 15 42 16 C38.5 17 35.5 18.5 32 18.5 C28.5 18.5 25.5 17 22 16 Z"
+    fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M47 6 L49 12.6 L54.5 14.5 L49 16.4 L47 23 L45 16.4 L39.5 14.5 L45 12.6 Z" fill="#ffffff"/>
+</svg>
