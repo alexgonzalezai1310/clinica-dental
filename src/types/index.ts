@@ -10,7 +10,7 @@ export interface TeamMember {
   name: string;
   specialty: string;
   license?: string;
-  photo: string;
+  photo?: string;
 }
 
 export interface Testimonial {

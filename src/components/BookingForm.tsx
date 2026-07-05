@@ -23,14 +23,15 @@ function dayOfWeek(iso: string) {
 }
 
 function isOpenDay(iso: string) {
-  return dayOfWeek(iso) !== 0; // domingos cerrado
+  const day = dayOfWeek(iso);
+  return day >= 1 && day <= 5; // L-V; fines de semana cerrado
 }
 
-function timesFor(dateISO: string): string[] {
+// Horas seleccionables: L-V 9:00–13:00 y 16:30–20:00 (horario real de la clínica)
+function timesFor(): string[] {
   const times: string[] = [];
-  for (let m = 9 * 60; m < 14 * 60; m += 30) times.push(toTime(m));
-  if (dateISO && dayOfWeek(dateISO) === 6) return times; // sábado: solo mañana
-  for (let m = 15 * 60; m < 20 * 60; m += 30) times.push(toTime(m));
+  for (let m = 9 * 60; m < 13 * 60; m += 30) times.push(toTime(m));
+  for (let m = 16 * 60 + 30; m < 20 * 60; m += 30) times.push(toTime(m));
   return times;
 }
 
@@ -70,7 +71,7 @@ export function BookingForm({ open, onOpenChange }: { open: boolean; onOpenChang
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate.email)) e.email = "Email no válido";
     if (!candidate.treatment) e.treatment = "Selecciona un tratamiento";
     if (!candidate.date) e.date = "Selecciona una fecha";
-    else if (!isOpenDay(candidate.date)) e.date = "Los domingos cerramos";
+    else if (!isOpenDay(candidate.date)) e.date = "Solo atendemos de lunes a viernes";
     if (!candidate.time) e.time = "Selecciona una hora";
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -159,7 +160,7 @@ export function BookingForm({ open, onOpenChange }: { open: boolean; onOpenChang
               <Select value={form.time} onValueChange={(v) => update("time", v)}>
                 <SelectTrigger id="time"><SelectValue placeholder="Elige hora" /></SelectTrigger>
                 <SelectContent>
-                  {timesFor(form.date).map((t) => (
+                  {timesFor().map((t) => (
                     <SelectItem key={t} value={t}>{t}</SelectItem>
                   ))}
                 </SelectContent>

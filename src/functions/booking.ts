@@ -19,7 +19,7 @@ export const submitBookingFn = createServerFn({ method: "POST" })
     // debe llegar al bundle del cliente.
     const { isOpenDay, tryBook } = await import("@/server/schedule");
     if (!isOpenDay(data.date)) {
-      throw new Error("La clínica cierra los domingos");
+      throw new Error("La clínica solo atiende de lunes a viernes");
     }
     const result = tryBook(data);
     if (result.status === "confirmed") {

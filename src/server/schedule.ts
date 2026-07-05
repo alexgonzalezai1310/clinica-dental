@@ -7,17 +7,18 @@ import { services } from "@/data/services";
 // alternativas.
 
 const SLOT_MIN = 30;
-const MORNING = { start: 9 * 60, end: 14 * 60 };
-const AFTERNOON = { start: 15 * 60, end: 20 * 60 };
+// Horario real de la clínica: L-V 9:00–13:00 y 16:30–20:00 (sábados cerrado).
+const MORNING = { start: 9 * 60, end: 13 * 60 };
+const AFTERNOON = { start: 16 * 60 + 30, end: 20 * 60 };
 
 // Duración estimada de cada tratamiento (minutos)
 const DURATIONS: Record<string, number> = {
-  limpieza: 30,
-  ortodoncia: 60,
-  implantes: 60,
-  blanqueamiento: 60,
-  odontopediatria: 30,
-  estetica: 60,
+  "cirugia-implantes": 60,
+  ortodoncia: 45,
+  protesis: 60,
+  general: 30,
+  periodoncia: 45,
+  endodoncia: 60,
 };
 
 interface StoredAppointment {
@@ -51,11 +52,10 @@ function dayOfWeek(date: string): number {
   return new Date(date + "T00:00:00").getDay();
 }
 
-// Lun-Vie mañana y tarde; sábado solo mañana (horario publicado en la web)
+// Lun-Vie mañana y tarde; fines de semana cerrado (horario real de la clínica)
 function windowsFor(date: string): { start: number; end: number }[] {
   const day = dayOfWeek(date);
-  if (day === 0) return [];
-  if (day === 6) return [MORNING];
+  if (day === 0 || day === 6) return [];
   return [MORNING, AFTERNOON];
 }
 

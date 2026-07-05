@@ -26,14 +26,15 @@ export function Contact() {
               <Mail className="w-5 h-5 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium">Email</p>
-                <p className="text-sm text-muted-foreground">citas@moyayarandavillarrubia.com</p>
+                <p className="text-sm text-muted-foreground">info@moyayarandavillarrubia.com</p>
               </div>
             </li>
             <li className="flex gap-4">
               <Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium">Horarios</p>
-                <p className="text-sm text-muted-foreground">Lun-Vie 9:00–20:00 · Sáb 9:00–14:00</p>
+                <p className="text-sm text-muted-foreground">Lunes a viernes: 9:00–13:00 y 16:30–20:00</p>
+                <p className="text-sm text-muted-foreground">Sábado y domingo: cerrado</p>
               </div>
             </li>
           </ul>

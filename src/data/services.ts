@@ -1,43 +1,44 @@
 import type { Service } from "@/types";
 
-// Precios ocultos a propósito: la clínica entrega presupuesto cerrado tras la
-// primera revisión. Si en el futuro quieres mostrar importes, añade el campo
-// `price` a cada servicio.
+// Servicios reales de la Clínica Dental S. Moya & R. Aranda.
+// Precios ocultos a propósito: presupuesto cerrado tras la primera revisión.
+// El `id` de cada servicio se usa en src/server/schedule.ts para estimar la
+// duración de la cita.
 export const services: Service[] = [
   {
-    id: "limpieza",
-    title: "Limpieza dental",
-    description: "Higiene profesional con ultrasonidos y pulido para una sonrisa radiante.",
-    icon: "Sparkles",
+    id: "cirugia-implantes",
+    title: "Cirugía e Implantes",
+    description: "Implantes de titanio y cirugía oral para reponer piezas perdidas con seguridad.",
+    icon: "Syringe",
   },
   {
     id: "ortodoncia",
-    title: "Ortodoncia",
-    description: "Ortodoncia y alineadores transparentes para corregir tu sonrisa con discreción.",
+    title: "Ortodoncia · Invisalign",
+    description: "Ortodoncia fija e Invisalign: alineadores transparentes para corregir la mordida con discreción.",
     icon: "Smile",
   },
   {
-    id: "implantes",
-    title: "Implantes dentales",
-    description: "Recupera piezas perdidas con implantes de titanio de última generación.",
-    icon: "Anchor",
+    id: "protesis",
+    title: "Prótesis y Rehabilitación",
+    description: "Prótesis fijas y removibles y rehabilitación completa para recuperar función y estética.",
+    icon: "Layers",
   },
   {
-    id: "blanqueamiento",
-    title: "Blanqueamiento",
-    description: "Tratamiento en clínica para varios tonos más blancos en una sesión.",
-    icon: "Sun",
+    id: "general",
+    title: "Odontología General",
+    description: "Revisiones, limpiezas, empastes y prevención para mantener tu boca sana.",
+    icon: "Stethoscope",
   },
   {
-    id: "odontopediatria",
-    title: "Odontopediatría",
-    description: "Cuidado dental especializado para los más pequeños en un entorno amable.",
-    icon: "Baby",
+    id: "periodoncia",
+    title: "Periodoncia",
+    description: "Diagnóstico y tratamiento de encías: gingivitis, periodontitis y mantenimiento periodontal.",
+    icon: "ShieldCheck",
   },
   {
-    id: "estetica",
-    title: "Estética dental",
-    description: "Carillas de porcelana y composite para un resultado natural y armónico.",
-    icon: "Gem",
+    id: "endodoncia",
+    title: "Endodoncia",
+    description: "Tratamiento de conductos para salvar dientes dañados eliminando el dolor.",
+    icon: "Microscope",
   },
 ];

@@ -36,7 +36,7 @@ export async function sendBookingConfirmation(booking: BookingEmailData): Promis
     <tr><td style="padding: 4px 12px 4px 0; color: #777;">Dirección</td><td style="padding: 4px 0;">Av. de la Pedanía, 202, 14710 Villarrubia, Córdoba</td></tr>
   </table>
   <p>Si necesitas cambiar o anular la cita, llámanos al <strong>957 327 291</strong> o responde a este correo.</p>
-  <p style="color: #777; font-size: 13px; margin-top: 24px;">Clínica Dental S. Moya & R. Aranda · citas@moyayarandavillarrubia.com · 957 327 291</p>
+  <p style="color: #777; font-size: 13px; margin-top: 24px;">Clínica Dental S. Moya & R. Aranda · info@moyayarandavillarrubia.com · 957 327 291</p>
 </div>`;
 
   try {

@@ -35,8 +35,8 @@ Responde ÚNICAMENTE con la información de la clínica que tienes a continuaci�
 ## Datos de la clínica
 - Dirección: Av. de la Pedanía, 202, 14710 Villarrubia, Córdoba
 - Teléfono: 957 327 291 (también urgencias el mismo día en horario de clínica)
-- Email: citas@moyayarandavillarrubia.com
-- Horario: lunes a viernes 9:00–14:00 y 15:00–20:00 · sábados 9:00–14:00 · domingos cerrado
+- Email: info@moyayarandavillarrubia.com
+- Horario: lunes a viernes de 9:00 a 13:00 y de 16:30 a 20:00 · sábados y domingos cerrado
 
 ## Tratamientos
 ${services.map((s) => `- ${s.title}: ${s.description}`).join("\n")}
@@ -62,7 +62,7 @@ const tools: Anthropic.Tool[] = [
         date: { type: "string", description: "Fecha en formato YYYY-MM-DD" },
         treatment: {
           type: "string",
-          description: `Tratamiento solicitado. Uno de: ${services.map((s) => s.title).join(", ")}. Si el usuario no lo especifica usa "Limpieza dental".`,
+          description: `Tratamiento solicitado. Uno de: ${services.map((s) => s.title).join(", ")}. Si el usuario no lo especifica usa "Odontología General".`,
         },
       },
       required: ["date", "treatment"],
@@ -90,7 +90,7 @@ const tools: Anthropic.Tool[] = [
 async function runTool(name: string, input: Record<string, string>): Promise<string> {
   if (name === "consultar_disponibilidad") {
     if (!isOpenDay(input.date)) {
-      return JSON.stringify({ open: false, message: "La clínica cierra los domingos" });
+      return JSON.stringify({ open: false, message: "La clínica solo atiende de lunes a viernes" });
     }
     const duration = treatmentDuration(input.treatment);
     const slots = freeSlotsFor(input.date, duration);
@@ -106,7 +106,7 @@ async function runTool(name: string, input: Record<string, string>): Promise<str
 
   if (name === "reservar_cita") {
     if (!isOpenDay(input.date)) {
-      return JSON.stringify({ status: "error", message: "La clínica cierra los domingos" });
+      return JSON.stringify({ status: "error", message: "La clínica solo atiende de lunes a viernes" });
     }
     const outcome = tryBook({
       fullName: input.fullName,
@@ -146,7 +146,7 @@ function fallbackAnswer(question: string): string {
     if (score > best.score) best = { score, answer: faq.answer };
   }
   if (best.score >= 2) return best.answer;
-  return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 957 327 291 o escribe a citas@moyayarandavillarrubia.com y te ayudamos encantados.";
+  return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 957 327 291 o escribe a info@moyayarandavillarrubia.com y te ayudamos encantados.";
 }
 
 // Modelo gratuito de Cloudflare Workers AI usado como motor de pruebas

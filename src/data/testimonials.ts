@@ -17,23 +17,23 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "María Pérez",
-    treatment: "Blanqueamiento",
+    treatment: "Odontología general",
     rating: 5,
     quote:
-      "Instalaciones preciosas y resultado increíble en una sola sesión. Volveré sin duda.",
+      "Revisión y limpieza impecables, y me explicaron todo con calma. Volveré sin duda.",
   },
   {
     name: "Andrés Gil",
-    treatment: "Carillas de porcelana",
+    treatment: "Prótesis y rehabilitación",
     rating: 5,
     quote:
       "La Dra. Moya entendió perfectamente lo que buscaba. Resultado natural y elegante.",
   },
   {
     name: "Sofía Navarro",
-    treatment: "Odontopediatría",
+    treatment: "Endodoncia",
     rating: 5,
     quote:
-      "Mi hijo ya no tiene miedo al dentista. El equipo es maravilloso con los niños.",
+      "Tenía pánico a la endodoncia y no sentí nada. Un equipo que te tranquiliza en todo momento.",
   },
 ];
