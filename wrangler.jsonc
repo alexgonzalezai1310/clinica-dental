@@ -1,8 +1,9 @@
 {
-  // Bindings adicionales que Nitro fusiona con el wrangler.json que genera en
-  // cada build (ver .output/server/wrangler.json). No declares aquí "name",
-  // "main" ni "assets": Nitro los rellena y avisa si los pisas.
+  // Config que Nitro fusiona con el wrangler.json que genera en cada build
+  // (ver .output/server/wrangler.json). "main" y "assets" los rellena Nitro;
+  // "name" fija el nombre del Worker en Cloudflare.
+  "name": "clinica-dental",
   "ai": {
     "binding": "AI",
-  },"name": "clinica-dental",
+  },
 }
