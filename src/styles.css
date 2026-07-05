@@ -213,6 +213,15 @@
   animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Parpadeo de los destellos de la dentadura del fondo. */
+@keyframes twinkle-in {
+  0%, 100% { opacity: 0.15; transform: scale(0.6) rotate(-8deg); }
+  50% { opacity: 0.9; transform: scale(1.05) rotate(6deg); }
+}
+@utility twinkle {
+  animation: twinkle-in 3.2s ease-in-out infinite;
+}
+
 /* Deriva ambiental de las manchas del fondo (BackgroundFX). */
 @keyframes drift-a {
   0%, 100% { transform: translate(0, 0) scale(1); }
