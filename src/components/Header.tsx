@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 const links = [
   { href: "#inicio", label: "Inicio" },
@@ -15,9 +16,8 @@ export function Header({ onBook }: { onBook: () => void }) {
   return (
     <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
       <div className="container-page flex items-center justify-between h-16">
-        <a href="#inicio" className="flex items-center gap-2">
-          <span className="w-8 h-8 rounded-full bg-primary grid place-items-center text-primary-foreground font-serif font-bold">L</span>
-          <span className="font-serif text-lg font-semibold">Luminova</span>
+        <a href="#inicio" aria-label="Luminova Clínica Dental">
+          <Logo />
         </a>
         <nav className="hidden md:flex items-center gap-7">
           {links.map((l) => (

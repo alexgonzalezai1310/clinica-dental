@@ -1,14 +1,12 @@
 import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   return (
     <footer className="border-t border-border py-12">
       <div className="container-page grid md:grid-cols-3 gap-8">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-full bg-primary grid place-items-center text-primary-foreground font-serif font-bold">L</span>
-            <span className="font-serif text-lg font-semibold">Clínica Dental Luminova</span>
-          </div>
+          <Logo markClassName="w-9 h-9" variant="stacked" />
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
             Salud bucodental de excelencia con un trato cercano en el corazón de Madrid.
           </p>
