@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header } from "@/components/Header";
+import { BackgroundFX } from "@/components/BackgroundFX";
 import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
 import { Team } from "@/components/Team";
@@ -20,7 +21,8 @@ function Index() {
   const openBooking = () => setBookingOpen(true);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen text-foreground">
+      <BackgroundFX />
       <Header onBook={openBooking} />
       <main>
         <Hero onBook={openBooking} />

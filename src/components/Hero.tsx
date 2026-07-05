@@ -5,12 +5,6 @@ import hero from "@/assets/hero-clinic.jpg";
 export function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section id="inicio" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
-      {/* atmósfera cálida al fondo */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 -right-32 w-[42rem] h-[42rem] rounded-full opacity-60 blur-3xl"
-        style={{ background: "radial-gradient(closest-side, color-mix(in srgb, var(--sun) 26%, transparent), transparent)" }}
-      />
       <div className="container-page relative grid md:grid-cols-[1.05fr_0.95fr] gap-12 md:gap-10 items-center">
         <div className="rise">
           <p className="eyebrow">Villarrubia · Córdoba</p>
