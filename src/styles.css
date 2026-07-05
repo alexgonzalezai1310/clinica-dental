@@ -31,53 +31,65 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --color-sun: var(--sun);
+  --color-sun-foreground: var(--sun-foreground);
 }
 
+/*
+  "Arcos de Villarrubia" — calidez andaluza + frescura clínica.
+  Cerúleo profundo (evoluciona el azul del logo) + miel andaluza (sol, cerámica
+  de Córdoba) sobre blanco fresco. El acento miel se usa con moderación; el
+  elemento distintivo es el arco (Mezquita de Córdoba).
+*/
 :root {
-  --radius: 1rem;
-  --background: oklch(0.995 0.003 220);
-  --foreground: oklch(0.22 0.04 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.04 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.04 250);
-  --primary: oklch(0.62 0.14 245);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.96 0.02 220);
-  --secondary-foreground: oklch(0.3 0.06 250);
-  --muted: oklch(0.97 0.01 220);
-  --muted-foreground: oklch(0.5 0.03 250);
-  --accent: oklch(0.88 0.11 170);
-  --accent-foreground: oklch(0.28 0.08 180);
-  --destructive: oklch(0.6 0.22 27);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.015 230);
-  --input: oklch(0.92 0.015 230);
-  --ring: oklch(0.62 0.14 245);
+  --radius: 1.1rem;
+  --background: #f4f8f7;
+  --foreground: #10333f;
+  --card: #ffffff;
+  --card-foreground: #10333f;
+  --popover: #ffffff;
+  --popover-foreground: #10333f;
+  --primary: #1e6e8c;
+  --primary-foreground: #ffffff;
+  --secondary: #e7f0ee;
+  --secondary-foreground: #1b4a57;
+  --muted: #edf3f1;
+  --muted-foreground: #5e7a83;
+  --accent: #e7a33c;
+  --accent-foreground: #3a2a08;
+  --sun: #e7a33c;
+  --sun-foreground: #3a2a08;
+  --destructive: #c0453a;
+  --destructive-foreground: #ffffff;
+  --border: #dae7e5;
+  --input: #dae7e5;
+  --ring: #1e6e8c;
 }
 
 .dark {
-  --background: oklch(0.16 0.03 250);
-  --foreground: oklch(0.98 0.005 220);
-  --card: oklch(0.22 0.04 250);
-  --card-foreground: oklch(0.98 0.005 220);
-  --popover: oklch(0.22 0.04 250);
-  --popover-foreground: oklch(0.98 0.005 220);
-  --primary: oklch(0.7 0.15 245);
-  --primary-foreground: oklch(0.16 0.03 250);
-  --secondary: oklch(0.28 0.04 250);
-  --secondary-foreground: oklch(0.98 0.005 220);
-  --muted: oklch(0.28 0.04 250);
-  --muted-foreground: oklch(0.72 0.03 230);
-  --accent: oklch(0.75 0.12 170);
-  --accent-foreground: oklch(0.16 0.03 250);
-  --destructive: oklch(0.7 0.19 22);
-  --destructive-foreground: oklch(1 0 0);
+  --background: #0c242e;
+  --foreground: #eaf3f2;
+  --card: #12323f;
+  --card-foreground: #eaf3f2;
+  --popover: #12323f;
+  --popover-foreground: #eaf3f2;
+  --primary: #58a8c4;
+  --primary-foreground: #06171e;
+  --secondary: #163b48;
+  --secondary-foreground: #eaf3f2;
+  --muted: #163b48;
+  --muted-foreground: #9fbac2;
+  --accent: #f0b75a;
+  --accent-foreground: #1a1204;
+  --sun: #f0b75a;
+  --sun-foreground: #1a1204;
+  --destructive: #e0685c;
+  --destructive-foreground: #ffffff;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.7 0.15 245);
+  --ring: #58a8c4;
 }
 
 @layer base {
@@ -94,11 +106,34 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
-    letter-spacing: -0.01em;
+    font-optical-sizing: auto;
+    font-weight: 560;
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    background: var(--sun);
+    color: var(--sun-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -125,4 +160,55 @@
 
 @utility animate-chat-in {
   animation: chat-in 0.25s ease-out both;
+}
+
+/* Elemento distintivo: el arco de Córdoba. Marco tipo portal (arco de medio
+   punto arriba, base suavemente redondeada). */
+@utility arch-frame {
+  border-radius: 999px 999px var(--radius) var(--radius);
+  overflow: hidden;
+}
+
+/* Hornacina para los iconos de servicio: cuadrado con arco de herradura. */
+@utility arch-well {
+  border-radius: 50% 50% 26% 26% / 60% 60% 22% 22%;
+}
+
+/* Etiqueta superior (eyebrow) con guion andaluz. */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+
+  &::before {
+    content: "";
+    width: 1.6rem;
+    height: 2px;
+    background: var(--sun);
+    border-radius: 2px;
+  }
+}
+
+/* Cenefa de arcos (arquería) como remate sutil de sección. */
+@utility arcade {
+  height: 16px;
+  background: var(--sun);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16'%3E%3Cpath d='M0 16 V6 A6 6 0 0 1 12 6 V16 H10 V6 A4 4 0 0 0 2 6 V16 Z' fill='%23000'/%3E%3C/svg%3E") repeat-x;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16'%3E%3Cpath d='M0 16 V6 A6 6 0 0 1 12 6 V16 H10 V6 A4 4 0 0 0 2 6 V16 Z' fill='%23000'/%3E%3C/svg%3E") repeat-x;
+  -webkit-mask-size: 16px 16px;
+  mask-size: 16px 16px;
+  opacity: 0.55;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility rise {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

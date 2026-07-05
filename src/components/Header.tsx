@@ -13,20 +13,24 @@ const links = [
 export function Header({ onBook }: { onBook: () => void }) {
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
+    <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-background/85 border-b border-border/70">
       <div className="container-page flex items-center justify-between h-16">
         <a href="#inicio" aria-label="Clínica Dental S. Moya & R. Aranda">
           <Logo />
         </a>
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a
+              key={l.href}
+              href={l.href}
+              className="relative text-sm text-muted-foreground hover:text-foreground transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-sun after:transition-all hover:after:w-full"
+            >
               {l.label}
             </a>
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Button onClick={onBook} className="hidden sm:inline-flex rounded-full px-5">Reservar cita</Button>
+          <Button onClick={onBook} className="hidden sm:inline-flex rounded-full px-6 h-10">Reservar cita</Button>
           <button
             className="md:hidden p-2 -mr-2"
             aria-label="Abrir menú"

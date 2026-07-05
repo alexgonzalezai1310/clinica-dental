@@ -14,11 +14,11 @@ export function Team() {
     <section id="equipo" className="py-20 md:py-28">
       <div className="container-page">
         <div className="max-w-2xl">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider">La clínica</p>
-          <h2 className="mt-2 text-3xl md:text-4xl font-semibold">
-            Excelencia en cuidado dental en Villarrubia
+          <p className="eyebrow">La clínica</p>
+          <h2 className="mt-4 text-3xl md:text-[2.75rem] leading-tight font-serif">
+            Cuidamos sonrisas en Villarrubia con nombre propio
           </h2>
-          <div className="mt-4 space-y-4 text-muted-foreground">
+          <div className="mt-5 space-y-4 text-muted-foreground text-lg">
             <p>
               En la Clínica Dental S. Moya &amp; R. Aranda ofrecemos una gama completa de servicios
               odontológicos —odontología general, endodoncia, ortodoncia, implantes, prótesis y
@@ -32,21 +32,21 @@ export function Team() {
             </p>
           </div>
         </div>
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-12 grid sm:grid-cols-2 gap-6 max-w-3xl">
           {team.map((m) => (
-            <div key={m.name} className="bg-card rounded-2xl p-6 border border-border flex items-center gap-4">
+            <div key={m.name} className="bg-card rounded-2xl p-6 border border-border flex items-center gap-5 transition-shadow hover:shadow-[0_20px_44px_-26px_rgba(16,51,63,0.4)]">
               {m.photo ? (
-                <img src={m.photo} alt={m.name} className="w-16 h-16 rounded-full object-cover shrink-0" />
+                <img src={m.photo} alt={m.name} className="arch-well w-16 h-20 object-cover shrink-0" />
               ) : (
                 <span
                   aria-hidden
-                  className="w-16 h-16 rounded-full shrink-0 grid place-items-center text-lg font-serif font-semibold text-primary-foreground bg-gradient-to-br from-[#93C2EE] to-[#4C86C9]"
+                  className="arch-well w-16 h-20 shrink-0 grid place-items-center text-xl font-serif font-semibold text-primary-foreground bg-gradient-to-b from-primary to-[#14536b]"
                 >
                   {initials(m.name)}
                 </span>
               )}
               <div>
-                <h3 className="text-base font-semibold leading-tight">{m.name}</h3>
+                <h3 className="text-base font-serif font-medium leading-tight">{m.name}</h3>
                 <p className="text-sm text-primary mt-1">{m.specialty}</p>
                 {m.license && <p className="text-xs text-muted-foreground mt-1.5">{m.license}</p>}
               </div>

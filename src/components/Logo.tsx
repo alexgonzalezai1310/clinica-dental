@@ -9,8 +9,8 @@ export function LogoMark({ className }: { className?: string }) {
     <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Clínica Dental S. Moya & R. Aranda">
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#93C2EE" />
-          <stop offset="1" stopColor="#5A93D4" />
+          <stop offset="0" stopColor="#6FB0C9" />
+          <stop offset="1" stopColor="#1E6E8C" />
         </linearGradient>
       </defs>
       <path
@@ -44,11 +44,11 @@ export function Logo({
     <span className={`flex items-center gap-2 ${className ?? ""}`}>
       <LogoMark className={markClassName} />
       <span className="flex flex-col leading-none">
-        <span className="font-sans font-light tracking-tight text-base sm:text-lg text-[#4C86C9]">
-          S. Moya & R. Aranda
+        <span className="font-serif text-base sm:text-lg text-primary">
+          S. Moya &amp; R. Aranda
         </span>
         <span
-          className={`mt-0.5 text-[10px] tracking-[0.3em] text-[#4C86C9]/70 ${
+          className={`mt-1 text-[10px] tracking-[0.3em] text-primary/60 ${
             variant === "stacked" ? "" : "hidden sm:block"
           }`}
         >
