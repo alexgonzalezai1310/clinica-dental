@@ -4,13 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { ChatMessage } from "@/types";
 import { sendChatMessage } from "@/lib/chat";
+import { LogoMark } from "@/components/Logo";
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "¡Hola! Soy el asistente de Luminova. ¿En qué puedo ayudarte?",
+      content: "¡Hola! Soy el asistente de la Clínica Dental Silvia Moya Gaona. ¿En qué puedo ayudarte?",
       timestamp: Date.now(),
     },
   ]);
@@ -52,15 +53,17 @@ export function ChatWidget() {
       {open && (
         <div
           role="dialog"
-          aria-label="Asistente Luminova"
+          aria-label="Asistente de la Clínica Dental Silvia Moya Gaona"
           className="fixed z-50 bg-card border border-border shadow-2xl overflow-hidden flex flex-col
             inset-x-3 bottom-24 top-20 rounded-2xl
             sm:inset-auto sm:bottom-24 sm:right-5 sm:top-auto sm:w-[380px] sm:h-[560px]"
         >
           <header className="px-4 py-3 border-b border-border flex items-center gap-3 bg-secondary/40">
-            <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground grid place-items-center font-serif font-bold">L</span>
+            <span className="w-8 h-8 rounded-full bg-background border border-border grid place-items-center">
+              <LogoMark className="w-5 h-5" />
+            </span>
             <div>
-              <p className="text-sm font-semibold leading-none">Asistente Luminova</p>
+              <p className="text-sm font-semibold leading-none">Asistente Silvia Moya</p>
               <p className="text-xs text-muted-foreground mt-0.5">En línea · te respondemos al momento</p>
             </div>
           </header>

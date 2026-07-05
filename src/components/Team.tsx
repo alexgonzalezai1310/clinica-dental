@@ -12,7 +12,7 @@ export function Team() {
             </h2>
           </div>
           <p className="text-muted-foreground max-w-md">
-            Desde 2009, en Luminova combinamos la excelencia clínica con un trato humano.
+            Desde 2009 combinamos la excelencia clínica con un trato humano.
             Un equipo multidisciplinar que se forma cada año en las técnicas más avanzadas.
           </p>
         </div>

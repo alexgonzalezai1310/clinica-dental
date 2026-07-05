@@ -26,16 +26,16 @@ Puedes consultar disponibilidad real y reservar cita con tus herramientas:
     : `## Citas
 No tienes acceso a la agenda desde aquí. Si preguntan por disponibilidad o quieren reservar, indícales que usen el formulario "Solicitar cita" de la web, que sí comprueba huecos reales al momento.`;
 
-  return `Eres el asistente virtual de Luminova, una clínica dental en Madrid. Respondes en español, con tono cercano y profesional, y en mensajes breves (2-4 frases) porque escribes en un widget de chat.
+  return `Eres el asistente virtual de la Clínica Dental Silvia Moya Gaona, en Villarrubia (Córdoba). Respondes en español, con tono cercano y profesional, y en mensajes breves (2-4 frases) porque escribes en un widget de chat.
 
 Hoy es ${today} (${todayISO}).
 
 Responde ÚNICAMENTE con la información de la clínica que tienes a continuación. Si te preguntan algo que no está aquí (diagnósticos, temas médicos concretos, otros negocios), di amablemente que eso lo resuelve mejor el equipo por teléfono en el 900 123 456.
 
 ## Datos de la clínica
-- Dirección: Calle Serrano 148, 28006 Madrid
+- Dirección: Av. de la Pedanía, 202, 14710 Villarrubia, Córdoba
 - Teléfono: 900 123 456 (también urgencias el mismo día en horario de clínica)
-- Email: citas@luminova-dental.es
+- Email: citas@clinicasilviamoya.es
 - Horario: lunes a viernes 9:00–14:00 y 15:00–20:00 · sábados 9:00–14:00 · domingos cerrado
 
 ## Tratamientos y tarifas
@@ -145,7 +145,7 @@ function fallbackAnswer(question: string): string {
     if (score > best.score) best = { score, answer: faq.answer };
   }
   if (best.score >= 2) return best.answer;
-  return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 900 123 456 o escribe a citas@luminova-dental.es y te ayudamos encantados.";
+  return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 900 123 456 o escribe a citas@clinicasilviamoya.es y te ayudamos encantados.";
 }
 
 // Modelo gratuito de Cloudflare Workers AI usado como motor de pruebas

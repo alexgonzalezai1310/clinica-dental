@@ -12,7 +12,7 @@ export function Contact() {
               <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium">Dirección</p>
-                <p className="text-sm text-muted-foreground">Calle Serrano 148, 28006 Madrid</p>
+                <p className="text-sm text-muted-foreground">Av. de la Pedanía, 202, 14710 Villarrubia, Córdoba</p>
               </div>
             </li>
             <li className="flex gap-4">
@@ -26,7 +26,7 @@ export function Contact() {
               <Mail className="w-5 h-5 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium">Email</p>
-                <p className="text-sm text-muted-foreground">citas@luminova-dental.es</p>
+                <p className="text-sm text-muted-foreground">citas@clinicasilviamoya.es</p>
               </div>
             </li>
             <li className="flex gap-4">
@@ -42,7 +42,7 @@ export function Contact() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/10 to-transparent" />
           <div className="relative text-center px-6">
             <MapPin className="w-8 h-8 text-primary mx-auto" />
-            <p className="mt-3 font-medium">Encuéntranos en el centro de Madrid</p>
+            <p className="mt-3 font-medium">Encuéntranos en Villarrubia, Córdoba</p>
             <p className="text-sm text-muted-foreground mt-1">Mapa disponible próximamente</p>
           </div>
         </div>

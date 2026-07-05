@@ -8,7 +8,7 @@ export function Footer() {
         <div>
           <Logo markClassName="w-9 h-9" variant="stacked" />
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-            Salud bucodental de excelencia con un trato cercano en el corazón de Madrid.
+            Salud bucodental de excelencia con un trato cercano en Villarrubia, Córdoba.
           </p>
         </div>
         <div className="text-sm">
@@ -31,8 +31,8 @@ export function Footer() {
         </div>
       </div>
       <div className="container-page mt-10 pt-6 border-t border-border text-xs text-muted-foreground flex flex-wrap justify-between gap-2">
-        <p>© {new Date().getFullYear()} Clínica Dental Luminova. Todos los derechos reservados.</p>
-        <p>Hecho con cuidado en Madrid.</p>
+        <p>© {new Date().getFullYear()} Clínica Dental Silvia Moya Gaona. Todos los derechos reservados.</p>
+        <p>Hecho con cuidado en Villarrubia, Córdoba.</p>
       </div>
     </footer>
   );

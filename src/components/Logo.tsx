@@ -1,12 +1,12 @@
 import { useId } from "react";
 
-// Marca Luminova recreada como SVG vectorial (diente + destello). Nítida a
-// cualquier tamaño y sin depender de un archivo de imagen. El color se toma
+// Marca de la clínica recreada como SVG vectorial (diente + destello). Nítida
+// a cualquier tamaño y sin depender de un archivo de imagen. El color se toma
 // del gradiente azul de la marca.
 export function LogoMark({ className }: { className?: string }) {
   const gid = useId();
   return (
-    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Luminova">
+    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Clínica Dental Silvia Moya Gaona">
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#93C2EE" />
@@ -44,14 +44,16 @@ export function Logo({
     <span className={`flex items-center gap-2 ${className ?? ""}`}>
       <LogoMark className={markClassName} />
       <span className="flex flex-col leading-none">
-        <span className="font-sans font-light tracking-tight text-lg text-[#4C86C9]">
-          Luminova
+        <span className="font-sans font-light tracking-tight text-base sm:text-lg text-[#4C86C9]">
+          Silvia Moya Gaona
         </span>
-        {variant === "stacked" && (
-          <span className="mt-0.5 text-[10px] tracking-[0.35em] text-[#4C86C9]/70">
-            CLÍNICA DENTAL
-          </span>
-        )}
+        <span
+          className={`mt-0.5 text-[10px] tracking-[0.3em] text-[#4C86C9]/70 ${
+            variant === "stacked" ? "" : "hidden sm:block"
+          }`}
+        >
+          CLÍNICA DENTAL
+        </span>
       </span>
     </span>
   );

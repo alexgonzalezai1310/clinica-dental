@@ -16,7 +16,7 @@ export function Header({ onBook }: { onBook: () => void }) {
   return (
     <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
       <div className="container-page flex items-center justify-between h-16">
-        <a href="#inicio" aria-label="Luminova Clínica Dental">
+        <a href="#inicio" aria-label="Clínica Dental Silvia Moya Gaona">
           <Logo />
         </a>
         <nav className="hidden md:flex items-center gap-7">
