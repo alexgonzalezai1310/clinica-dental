@@ -19,6 +19,7 @@ const DURATIONS: Record<string, number> = {
   general: 30,
   periodoncia: 45,
   endodoncia: 60,
+  radiologia: 15,
 };
 
 interface StoredAppointment {

@@ -41,4 +41,10 @@ export const services: Service[] = [
     description: "Tratamiento de conductos para salvar dientes dañados eliminando el dolor.",
     icon: "Microscope",
   },
+  {
+    id: "radiologia",
+    title: "Radiología digital",
+    description: "Radiografía digital de baja radiación para un diagnóstico rápido y preciso.",
+    icon: "Scan",
+  },
 ];

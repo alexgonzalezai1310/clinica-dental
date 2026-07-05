@@ -13,13 +13,6 @@ export interface TeamMember {
   photo?: string;
 }
 
-export interface Testimonial {
-  name: string;
-  treatment: string;
-  rating: number;
-  quote: string;
-}
-
 export interface FAQ {
   question: string;
   answer: string;

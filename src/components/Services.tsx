@@ -1,7 +1,7 @@
 import { services } from "@/data/services";
-import { Layers, Microscope, ShieldCheck, Smile, Sparkles, Stethoscope, Syringe, type LucideIcon } from "lucide-react";
+import { Layers, Microscope, Scan, ShieldCheck, Smile, Sparkles, Stethoscope, Syringe, type LucideIcon } from "lucide-react";
 
-const iconMap: Record<string, LucideIcon> = { Syringe, Smile, Layers, Stethoscope, ShieldCheck, Microscope, Sparkles };
+const iconMap: Record<string, LucideIcon> = { Syringe, Smile, Layers, Stethoscope, ShieldCheck, Microscope, Scan, Sparkles };
 
 export function Services() {
   return (
