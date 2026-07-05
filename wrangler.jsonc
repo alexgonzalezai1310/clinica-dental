@@ -4,5 +4,5 @@
   // "main" ni "assets": Nitro los rellena y avisa si los pisas.
   "ai": {
     "binding": "AI",
-  },
+  },"name": "clinica-dental",
 }
