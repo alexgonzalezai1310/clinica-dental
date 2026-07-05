@@ -11,7 +11,7 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "¡Hola! Soy el asistente de la Clínica Dental Silvia Moya Gaona. ¿En qué puedo ayudarte?",
+      content: "¡Hola! Soy el asistente de la Clínica Dental S. Moya & R. Aranda. ¿En qué puedo ayudarte?",
       timestamp: Date.now(),
     },
   ]);
@@ -53,7 +53,7 @@ export function ChatWidget() {
       {open && (
         <div
           role="dialog"
-          aria-label="Asistente de la Clínica Dental Silvia Moya Gaona"
+          aria-label="Asistente de la Clínica Dental S. Moya & R. Aranda"
           className="fixed z-50 bg-card border border-border shadow-2xl overflow-hidden flex flex-col
             inset-x-3 bottom-24 top-20 rounded-2xl
             sm:inset-auto sm:bottom-24 sm:right-5 sm:top-auto sm:w-[380px] sm:h-[560px]"
@@ -63,7 +63,7 @@ export function ChatWidget() {
               <LogoMark className="w-5 h-5" />
             </span>
             <div>
-              <p className="text-sm font-semibold leading-none">Asistente Silvia Moya</p>
+              <p className="text-sm font-semibold leading-none">Asistente Moya & Aranda</p>
               <p className="text-xs text-muted-foreground mt-0.5">En línea · te respondemos al momento</p>
             </div>
           </header>

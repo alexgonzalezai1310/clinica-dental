@@ -9,25 +9,25 @@ export const faqs: FAQ[] = [
   {
     question: "¿Ofrecéis financiación?",
     answer:
-      "Sí. Trabajamos con financiación hasta 60 meses sin intereses, adaptada a cada paciente.",
+      "Sí. Ofrecemos opciones de financiación adaptadas a cada paciente. Te informamos de las condiciones en la primera visita.",
   },
   {
     question: "¿Cómo se calculan los precios?",
     answer:
-      "Los precios orientativos aparecen en cada servicio. Tras la revisión te entregamos un presupuesto cerrado por escrito.",
+      "Tras una primera revisión gratuita te entregamos un presupuesto cerrado y por escrito, sin compromiso.",
   },
   {
     question: "¿Atendéis urgencias?",
     answer:
-      "Disponemos de servicio de urgencias en el mismo día llamando al 900 123 456 en horario de clínica.",
+      "Disponemos de servicio de urgencias en el mismo día llamando al 957 327 291 en horario de clínica.",
   },
   {
     question: "¿Trabajáis con seguros dentales?",
     answer:
-      "Colaboramos con las principales compañías: Sanitas, Adeslas, DKV y Mapfre. Consúltanos tu póliza.",
+      "Colaboramos con las principales compañías aseguradoras. Consúltanos tu póliza y te confirmamos la cobertura.",
   },
   {
-    question: "¿Cuánto dura un tratamiento de ortodoncia invisible?",
+    question: "¿Cuánto dura un tratamiento de ortodoncia?",
     answer:
       "Entre 8 y 18 meses de media, en función de la complejidad del caso. Te lo detallamos en la primera visita.",
   },

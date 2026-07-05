@@ -195,7 +195,7 @@ export function BookingForm({ open, onOpenChange }: { open: boolean; onOpenChang
                 </div>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  No quedan huecos próximos. Llámanos al 900 123 456 y te buscamos sitio.
+                  No quedan huecos próximos. Llámanos al 957 327 291 y te buscamos sitio.
                 </p>
               )}
             </div>

@@ -1,4 +1,4 @@
-# Clínica Dental Silvia Moya Gaona — demo
+# Clínica Dental S. Moya & R. Aranda — demo
 
 Web de demostración para clínicas dentales: información de la clínica (localización, tarifas, equipo), reserva de cita con comprobación de disponibilidad en tiempo real y chatbot entrenado con las preguntas frecuentes.
 

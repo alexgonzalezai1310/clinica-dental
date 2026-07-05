@@ -77,10 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Clínica Dental Silvia Moya Gaona · Tu sonrisa en las mejores manos" },
+      { title: "Clínica Dental S. Moya & R. Aranda · Tu sonrisa en las mejores manos" },
       { name: "description", content: "Clínica dental en Villarrubia (Córdoba): ortodoncia invisible, implantes, estética dental y odontopediatría. Primera visita gratuita." },
-      { name: "author", content: "Clínica Dental Silvia Moya Gaona" },
-      { property: "og:title", content: "Clínica Dental Silvia Moya Gaona" },
+      { name: "author", content: "Clínica Dental S. Moya & R. Aranda" },
+      { property: "og:title", content: "Clínica Dental S. Moya & R. Aranda" },
       { property: "og:description", content: "Salud bucodental de excelencia con un trato cercano en Villarrubia, Córdoba. Reserva tu cita online." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

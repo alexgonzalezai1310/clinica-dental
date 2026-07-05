@@ -1,46 +1,43 @@
 import type { Service } from "@/types";
 
+// Precios ocultos a propósito: la clínica entrega presupuesto cerrado tras la
+// primera revisión. Si en el futuro quieres mostrar importes, añade el campo
+// `price` a cada servicio.
 export const services: Service[] = [
   {
     id: "limpieza",
     title: "Limpieza dental",
     description: "Higiene profesional con ultrasonidos y pulido para una sonrisa radiante.",
-    price: "Desde 45€",
     icon: "Sparkles",
   },
   {
     id: "ortodoncia",
-    title: "Ortodoncia invisible",
-    description: "Alineadores transparentes personalizados. Corrige tu sonrisa con discreción.",
-    price: "Desde 2.900€",
+    title: "Ortodoncia",
+    description: "Ortodoncia y alineadores transparentes para corregir tu sonrisa con discreción.",
     icon: "Smile",
   },
   {
     id: "implantes",
     title: "Implantes dentales",
     description: "Recupera piezas perdidas con implantes de titanio de última generación.",
-    price: "Desde 950€",
     icon: "Anchor",
   },
   {
     id: "blanqueamiento",
     title: "Blanqueamiento",
-    description: "Tratamiento LED en clínica para varios tonos más blancos en una sesión.",
-    price: "Desde 220€",
+    description: "Tratamiento en clínica para varios tonos más blancos en una sesión.",
     icon: "Sun",
   },
   {
     id: "odontopediatria",
     title: "Odontopediatría",
     description: "Cuidado dental especializado para los más pequeños en un entorno amable.",
-    price: "Desde 35€",
     icon: "Baby",
   },
   {
     id: "estetica",
     title: "Estética dental",
     description: "Carillas de porcelana y composite para un resultado natural y armónico.",
-    price: "Desde 400€",
     icon: "Gem",
   },
 ];

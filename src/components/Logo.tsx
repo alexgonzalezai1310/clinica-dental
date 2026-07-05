@@ -6,7 +6,7 @@ import { useId } from "react";
 export function LogoMark({ className }: { className?: string }) {
   const gid = useId();
   return (
-    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Clínica Dental Silvia Moya Gaona">
+    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Clínica Dental S. Moya & R. Aranda">
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#93C2EE" />
@@ -45,7 +45,7 @@ export function Logo({
       <LogoMark className={markClassName} />
       <span className="flex flex-col leading-none">
         <span className="font-sans font-light tracking-tight text-base sm:text-lg text-[#4C86C9]">
-          Silvia Moya Gaona
+          S. Moya & R. Aranda
         </span>
         <span
           className={`mt-0.5 text-[10px] tracking-[0.3em] text-[#4C86C9]/70 ${

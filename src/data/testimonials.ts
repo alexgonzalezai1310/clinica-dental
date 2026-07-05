@@ -3,7 +3,7 @@ import type { Testimonial } from "@/types";
 export const testimonials: Testimonial[] = [
   {
     name: "Laura Fernández",
-    treatment: "Ortodoncia invisible",
+    treatment: "Ortodoncia",
     rating: 5,
     quote:
       "El trato ha sido excepcional desde el primer día. En 14 meses mi sonrisa cambió por completo.",
@@ -27,7 +27,7 @@ export const testimonials: Testimonial[] = [
     treatment: "Carillas de porcelana",
     rating: 5,
     quote:
-      "La Dra. Vargas entendió perfectamente lo que buscaba. Resultado natural y elegante.",
+      "La Dra. Moya entendió perfectamente lo que buscaba. Resultado natural y elegante.",
   },
   {
     name: "Sofía Navarro",

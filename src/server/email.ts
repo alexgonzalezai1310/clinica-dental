@@ -28,15 +28,15 @@ export async function sendBookingConfirmation(booking: BookingEmailData): Promis
 <div style="font-family: Georgia, serif; max-width: 560px; margin: 0 auto; color: #2b2b2b;">
   <h1 style="font-size: 22px; font-weight: normal;">Cita confirmada ✓</h1>
   <p>Hola ${escapeHtml(booking.fullName)},</p>
-  <p>Te confirmamos tu cita en <strong>Clínica Dental Silvia Moya Gaona</strong>:</p>
+  <p>Te confirmamos tu cita en <strong>Clínica Dental S. Moya & R. Aranda</strong>:</p>
   <table style="border-collapse: collapse; margin: 16px 0;">
     <tr><td style="padding: 4px 12px 4px 0; color: #777;">Tratamiento</td><td style="padding: 4px 0;"><strong>${escapeHtml(booking.treatment)}</strong></td></tr>
     <tr><td style="padding: 4px 12px 4px 0; color: #777;">Fecha</td><td style="padding: 4px 0;"><strong>${prettyDate}</strong></td></tr>
     <tr><td style="padding: 4px 12px 4px 0; color: #777;">Hora</td><td style="padding: 4px 0;"><strong>${booking.time}</strong></td></tr>
     <tr><td style="padding: 4px 12px 4px 0; color: #777;">Dirección</td><td style="padding: 4px 0;">Av. de la Pedanía, 202, 14710 Villarrubia, Córdoba</td></tr>
   </table>
-  <p>Si necesitas cambiar o anular la cita, llámanos al <strong>900 123 456</strong> o responde a este correo.</p>
-  <p style="color: #777; font-size: 13px; margin-top: 24px;">Clínica Dental Silvia Moya Gaona · citas@clinicasilviamoya.es · 900 123 456</p>
+  <p>Si necesitas cambiar o anular la cita, llámanos al <strong>957 327 291</strong> o responde a este correo.</p>
+  <p style="color: #777; font-size: 13px; margin-top: 24px;">Clínica Dental S. Moya & R. Aranda · citas@moyayarandavillarrubia.com · 957 327 291</p>
 </div>`;
 
   try {
@@ -48,7 +48,7 @@ export async function sendBookingConfirmation(booking: BookingEmailData): Promis
       },
       body: JSON.stringify({
         sender: {
-          name: process.env.BREVO_SENDER_NAME || "Clínica Dental Silvia Moya Gaona",
+          name: process.env.BREVO_SENDER_NAME || "Clínica Dental S. Moya & R. Aranda",
           email: senderEmail,
         },
         to: [{ email: booking.email, name: booking.fullName }],

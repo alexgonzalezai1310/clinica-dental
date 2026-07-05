@@ -29,7 +29,7 @@ export function Services() {
                 </div>
                 <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.description}</p>
-                <p className="mt-4 text-sm font-medium text-foreground">{s.price}</p>
+                {s.price && <p className="mt-4 text-sm font-medium text-foreground">{s.price}</p>}
               </div>
             );
           })}

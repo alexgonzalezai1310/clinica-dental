@@ -19,14 +19,14 @@ export function Contact() {
               <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium">Teléfono</p>
-                <p className="text-sm text-muted-foreground">900 123 456</p>
+                <p className="text-sm text-muted-foreground">957 327 291</p>
               </div>
             </li>
             <li className="flex gap-4">
               <Mail className="w-5 h-5 text-primary shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium">Email</p>
-                <p className="text-sm text-muted-foreground">citas@clinicasilviamoya.es</p>
+                <p className="text-sm text-muted-foreground">citas@moyayarandavillarrubia.com</p>
               </div>
             </li>
             <li className="flex gap-4">

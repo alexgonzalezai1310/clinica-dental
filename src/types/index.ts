@@ -2,14 +2,14 @@ export interface Service {
   id: string;
   title: string;
   description: string;
-  price: string;
+  price?: string;
   icon: string;
 }
 
 export interface TeamMember {
   name: string;
   specialty: string;
-  license: string;
+  license?: string;
   photo: string;
 }
 

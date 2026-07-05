@@ -16,7 +16,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
             <span className="text-primary">en las mejores manos</span>
           </h1>
           <p className="mt-5 text-lg text-muted-foreground max-w-lg">
-            En la Clínica Dental Silvia Moya Gaona cuidamos cada detalle para ofrecerte una
+            En la Clínica Dental S. Moya & R. Aranda cuidamos cada detalle para ofrecerte una
             experiencia cercana, profesional y sin dolor. Primera visita gratuita.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -30,7 +30,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
           <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-primary/10 via-accent/20 to-transparent blur-2xl" />
           <img
             src={hero}
-            alt="Clínica Dental Silvia Moya Gaona"
+            alt="Clínica Dental S. Moya & R. Aranda"
             className="relative rounded-[2rem] shadow-xl w-full aspect-square object-cover"
           />
         </div>

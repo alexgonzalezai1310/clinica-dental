@@ -31,7 +31,7 @@ export function Footer() {
         </div>
       </div>
       <div className="container-page mt-10 pt-6 border-t border-border text-xs text-muted-foreground flex flex-wrap justify-between gap-2">
-        <p>© {new Date().getFullYear()} Clínica Dental Silvia Moya Gaona. Todos los derechos reservados.</p>
+        <p>© {new Date().getFullYear()} Clínica Dental S. Moya & R. Aranda. Todos los derechos reservados.</p>
         <p>Hecho con cuidado en Villarrubia, Córdoba.</p>
       </div>
     </footer>

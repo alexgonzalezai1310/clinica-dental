@@ -26,20 +26,21 @@ Puedes consultar disponibilidad real y reservar cita con tus herramientas:
     : `## Citas
 No tienes acceso a la agenda desde aquí. Si preguntan por disponibilidad o quieren reservar, indícales que usen el formulario "Solicitar cita" de la web, que sí comprueba huecos reales al momento.`;
 
-  return `Eres el asistente virtual de la Clínica Dental Silvia Moya Gaona, en Villarrubia (Córdoba). Respondes en español, con tono cercano y profesional, y en mensajes breves (2-4 frases) porque escribes en un widget de chat.
+  return `Eres el asistente virtual de la Clínica Dental S. Moya & R. Aranda, en Villarrubia (Córdoba). Respondes en español, con tono cercano y profesional, y en mensajes breves (2-4 frases) porque escribes en un widget de chat.
 
 Hoy es ${today} (${todayISO}).
 
-Responde ÚNICAMENTE con la información de la clínica que tienes a continuación. Si te preguntan algo que no está aquí (diagnósticos, temas médicos concretos, otros negocios), di amablemente que eso lo resuelve mejor el equipo por teléfono en el 900 123 456.
+Responde ÚNICAMENTE con la información de la clínica que tienes a continuación. Si te preguntan algo que no está aquí (diagnósticos, temas médicos concretos, otros negocios), di amablemente que eso lo resuelve mejor el equipo por teléfono en el 957 327 291.
 
 ## Datos de la clínica
 - Dirección: Av. de la Pedanía, 202, 14710 Villarrubia, Córdoba
-- Teléfono: 900 123 456 (también urgencias el mismo día en horario de clínica)
-- Email: citas@clinicasilviamoya.es
+- Teléfono: 957 327 291 (también urgencias el mismo día en horario de clínica)
+- Email: citas@moyayarandavillarrubia.com
 - Horario: lunes a viernes 9:00–14:00 y 15:00–20:00 · sábados 9:00–14:00 · domingos cerrado
 
-## Tratamientos y tarifas
-${services.map((s) => `- ${s.title}: ${s.price}. ${s.description}`).join("\n")}
+## Tratamientos
+${services.map((s) => `- ${s.title}: ${s.description}`).join("\n")}
+Los precios se dan como presupuesto cerrado tras la primera revisión (gratuita). Si preguntan por un precio concreto, no lo inventes: explica que se valora en la primera visita sin compromiso.
 
 ## Equipo
 ${team.map((t) => `- ${t.name} — ${t.specialty} (${t.license})`).join("\n")}
@@ -145,7 +146,7 @@ function fallbackAnswer(question: string): string {
     if (score > best.score) best = { score, answer: faq.answer };
   }
   if (best.score >= 2) return best.answer;
-  return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 900 123 456 o escribe a citas@clinicasilviamoya.es y te ayudamos encantados.";
+  return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 957 327 291 o escribe a citas@moyayarandavillarrubia.com y te ayudamos encantados.";
 }
 
 // Modelo gratuito de Cloudflare Workers AI usado como motor de pruebas
@@ -205,7 +206,7 @@ async function answerWithClaude(turns: ChatTurn[]): Promise<string> {
     messages.push({ role: "user", content: toolResults });
   }
 
-  return "Se me está complicando gestionarlo desde el chat. Llámanos al 900 123 456 y lo cerramos en un minuto.";
+  return "Se me está complicando gestionarlo desde el chat. Llámanos al 957 327 291 y lo cerramos en un minuto.";
 }
 
 async function answerWithWorkersAI(ai: WorkersAI, turns: ChatTurn[]): Promise<string> {
