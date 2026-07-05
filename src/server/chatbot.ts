@@ -9,12 +9,22 @@ export interface ChatTurn {
   content: string;
 }
 
-function buildSystemPrompt(): string {
+function buildSystemPrompt(hasTools: boolean): string {
   const today = new Intl.DateTimeFormat("es-ES", {
     dateStyle: "full",
     timeZone: "Europe/Madrid",
   }).format(new Date());
   const todayISO = new Date().toISOString().slice(0, 10);
+
+  const citasSection = hasTools
+    ? `## Citas
+Puedes consultar disponibilidad real y reservar cita con tus herramientas:
+- Usa "consultar_disponibilidad" cuando pregunten por huecos (interpreta fechas relativas como "mañana" o "el jueves" a partir de la fecha de hoy).
+- Para reservar con "reservar_cita" necesitas: tratamiento, fecha, hora, nombre completo, teléfono y email. Pide los datos que falten antes de llamarla.
+- Si la hora pedida está ocupada, la herramienta devuelve alternativas: propónselas al usuario.
+- Tras reservar, confirma fecha, hora y tratamiento.`
+    : `## Citas
+No tienes acceso a la agenda desde aquí. Si preguntan por disponibilidad o quieren reservar, indícales que usen el formulario "Solicitar cita" de la web, que sí comprueba huecos reales al momento.`;
 
   return `Eres el asistente virtual de Luminova, una clínica dental en Madrid. Respondes en español, con tono cercano y profesional, y en mensajes breves (2-4 frases) porque escribes en un widget de chat.
 
@@ -37,12 +47,7 @@ ${team.map((t) => `- ${t.name} — ${t.specialty} (${t.license})`).join("\n")}
 ## Preguntas frecuentes
 ${faqs.map((f) => `P: ${f.question}\nR: ${f.answer}`).join("\n\n")}
 
-## Citas
-Puedes consultar disponibilidad real y reservar cita con tus herramientas:
-- Usa "consultar_disponibilidad" cuando pregunten por huecos (interpreta fechas relativas como "mañana" o "el jueves" a partir de la fecha de hoy).
-- Para reservar con "reservar_cita" necesitas: tratamiento, fecha, hora, nombre completo, teléfono y email. Pide los datos que falten antes de llamarla.
-- Si la hora pedida está ocupada, la herramienta devuelve alternativas: propónselas al usuario.
-- Tras reservar, confirma fecha, hora y tratamiento.`;
+${citasSection}`;
 }
 
 const tools: Anthropic.Tool[] = [
@@ -133,12 +138,23 @@ function fallbackAnswer(question: string): string {
   return "Ahora mismo no puedo responder a eso desde el chat. Llámanos al 900 123 456 o escribe a citas@luminova-dental.es y te ayudamos encantados.";
 }
 
-export async function answerChat(turns: ChatTurn[]): Promise<string> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    const lastUser = [...turns].reverse().find((m) => m.role === "user");
-    return fallbackAnswer(lastUser?.content ?? "");
-  }
+// Modelo gratuito de Cloudflare Workers AI usado como motor de pruebas
+// cuando no hay ANTHROPIC_API_KEY configurada (ver wrangler.jsonc, binding "AI").
+const WORKERS_AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
+interface WorkersAI {
+  run(model: string, input: Record<string, unknown>): Promise<{ response?: string } | string>;
+}
+
+// Nitro (preset cloudflare-module) expone los bindings del Worker en
+// globalThis.__env__ en cada request; es el mismo objeto para toda petición
+// a este Worker, así que leerlo aquí no compite con otras peticiones.
+function getWorkersAI(): WorkersAI | undefined {
+  const env = (globalThis as { __env__?: { AI?: WorkersAI } }).__env__;
+  return env?.AI;
+}
+
+async function answerWithClaude(turns: ChatTurn[]): Promise<string> {
   const client = new Anthropic();
 
   // El primer mensaje del widget es el saludo del asistente; la API exige
@@ -147,7 +163,7 @@ export async function answerChat(turns: ChatTurn[]): Promise<string> {
     .slice(turns.findIndex((m) => m.role === "user"))
     .map((m) => ({ role: m.role, content: m.content }));
 
-  const system = buildSystemPrompt();
+  const system = buildSystemPrompt(true);
 
   for (let i = 0; i < 5; i++) {
     const response = await client.messages.create({
@@ -178,4 +194,37 @@ export async function answerChat(turns: ChatTurn[]): Promise<string> {
   }
 
   return "Se me está complicando gestionarlo desde el chat. Llámanos al 900 123 456 y lo cerramos en un minuto.";
+}
+
+async function answerWithWorkersAI(ai: WorkersAI, turns: ChatTurn[]): Promise<string> {
+  const system = buildSystemPrompt(false);
+  const messages = turns
+    .slice(turns.findIndex((m) => m.role === "user"))
+    .map((m) => ({ role: m.role, content: m.content }));
+
+  try {
+    const result = await ai.run(WORKERS_AI_MODEL, {
+      messages: [{ role: "system", content: system }, ...messages],
+      max_tokens: 512,
+    });
+    const text = typeof result === "string" ? result : result?.response;
+    return text?.trim() || "Perdona, no te he entendido. ¿Puedes reformularlo?";
+  } catch {
+    const lastUser = [...turns].reverse().find((m) => m.role === "user");
+    return fallbackAnswer(lastUser?.content ?? "");
+  }
+}
+
+export async function answerChat(turns: ChatTurn[]): Promise<string> {
+  if (process.env.ANTHROPIC_API_KEY) {
+    return answerWithClaude(turns);
+  }
+
+  const workersAI = getWorkersAI();
+  if (workersAI) {
+    return answerWithWorkersAI(workersAI, turns);
+  }
+
+  const lastUser = [...turns].reverse().find((m) => m.role === "user");
+  return fallbackAnswer(lastUser?.content ?? "");
 }

@@ -1,0 +1,8 @@
+{
+  // Bindings adicionales que Nitro fusiona con el wrangler.json que genera en
+  // cada build (ver .output/server/wrangler.json). No declares aquí "name",
+  // "main" ni "assets": Nitro los rellena y avisa si los pisas.
+  "ai": {
+    "binding": "AI",
+  },
+}
