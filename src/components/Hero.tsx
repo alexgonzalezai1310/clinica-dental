@@ -1,8 +1,49 @@
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Clock } from "lucide-react";
 import hero from "@/assets/hero-clinic.jpg";
 
 export function Hero({ onBook }: { onBook: () => void }) {
+  const heroImg = useRef<HTMLImageElement>(null);
+
+  // Parallax sutil de la imagen del hero con GSAP + ScrollTrigger.
+  useEffect(() => {
+    let killed = false;
+    let ctx: { revert: () => void } | undefined;
+    (async () => {
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (killed || !heroImg.current) return;
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          gsap.fromTo(
+            heroImg.current,
+            { yPercent: -6, scale: 1.12 },
+            {
+              yPercent: 6,
+              scale: 1.02,
+              ease: "none",
+              scrollTrigger: {
+                trigger: heroImg.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.5,
+              },
+            },
+          );
+        });
+      });
+    })();
+    return () => {
+      killed = true;
+      ctx?.revert();
+    };
+  }, []);
+
   return (
     <section id="inicio" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
       <div className="container-page relative grid md:grid-cols-[1.05fr_0.95fr] gap-12 md:gap-10 items-center">
@@ -63,9 +104,10 @@ export function Hero({ onBook }: { onBook: () => void }) {
             {/* marco en arco (Mezquita de Córdoba) */}
             <div className="arch-frame border border-border shadow-[0_30px_60px_-24px_rgba(16,51,63,0.45)]">
               <img
+                ref={heroImg}
                 src={hero}
                 alt="Interior de la Clínica Dental S. Moya & R. Aranda"
-                className="w-full aspect-[4/5] object-cover"
+                className="w-full aspect-[4/5] object-cover will-change-transform"
               />
             </div>
             {/* pastilla flotante */}

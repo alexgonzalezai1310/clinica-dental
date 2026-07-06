@@ -5,6 +5,7 @@ import { BackgroundFX } from "@/components/BackgroundFX";
 import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
 import { Team } from "@/components/Team";
+import { Facilities } from "@/components/Facilities";
 import { FAQs } from "@/components/FAQs";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -28,6 +29,7 @@ function Index() {
         <Hero onBook={openBooking} />
         <Services />
         <Team />
+        <Facilities />
         <FAQs />
         <Contact />
       </main>
