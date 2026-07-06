@@ -7,7 +7,6 @@ import { Services } from "@/components/Services";
 import { Team } from "@/components/Team";
 import { FAQs } from "@/components/FAQs";
 import { Contact } from "@/components/Contact";
-import { Outro } from "@/components/Outro";
 import { Footer } from "@/components/Footer";
 import { BookingForm } from "@/components/BookingForm";
 import { ChatWidget } from "@/components/chat/ChatWidget";
@@ -31,7 +30,6 @@ function Index() {
         <Team />
         <FAQs />
         <Contact />
-        <Outro onBook={openBooking} />
       </main>
       <Footer />
       <BookingForm open={bookingOpen} onOpenChange={setBookingOpen} />

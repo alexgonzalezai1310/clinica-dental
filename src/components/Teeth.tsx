@@ -1,8 +1,23 @@
 // Macro de dientes perfectos (vector): encía coral festoneada y una arcada
 // superior de esmalte pulido con brillo especular, sombras de contacto y
-// profundidad de campo. Pensado para ir a pantalla completa como cierre.
+// profundidad de campo. Con `sparkles`, añade símbolos de brillo dorados que
+// parpadean (mismo lenguaje que el destello del logo).
 // (Para fotorrealismo total, se puede sustituir por una foto macro real.)
-export function TeethCloseup({ className }: { className?: string }) {
+
+function sparklePath(s: number): string {
+  const k = s * 0.26;
+  return `M0 ${-s} L${k} ${-k} L${s} 0 L${k} ${k} L0 ${s} L${-k} ${k} L${-s} 0 L${-k} ${-k} Z`;
+}
+
+const SPARKLES = [
+  { x: 0.2, y: 0.34, s: 26, delay: "0s" },
+  { x: 0.44, y: 0.52, s: 18, delay: "1.2s" },
+  { x: 0.58, y: 0.3, s: 32, delay: "0.5s" },
+  { x: 0.78, y: 0.46, s: 20, delay: "2.1s" },
+  { x: 0.9, y: 0.3, s: 14, delay: "1.7s" },
+];
+
+export function TeethCloseup({ className, sparkles }: { className?: string; sparkles?: boolean }) {
   const W = 1200;
   const H = 720;
   const N = 10;
@@ -106,6 +121,20 @@ export function TeethCloseup({ className }: { className?: string }) {
       </g>
 
       <rect x="0" y="0" width={W} height={H} fill="url(#tc-vig)" />
+
+      {/* símbolos de brillo */}
+      {sparkles &&
+        SPARKLES.map((sp, i) => (
+          <g key={i} transform={`translate(${sp.x * W} ${sp.y * H})`}>
+            <path
+              d={sparklePath(sp.s)}
+              fill="var(--sun)"
+              className="twinkle"
+              style={{ animationDelay: sp.delay, transformBox: "fill-box", transformOrigin: "center" }}
+            />
+            <path d={sparklePath(sp.s * 0.5)} fill="#ffffff" opacity="0.9" />
+          </g>
+        ))}
     </svg>
   );
 }
