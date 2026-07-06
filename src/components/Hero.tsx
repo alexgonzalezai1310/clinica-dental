@@ -48,7 +48,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
     <section id="inicio" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
       <div className="container-page relative grid md:grid-cols-[1.05fr_0.95fr] gap-12 md:gap-10 items-center">
         <div className="rise">
-          <p className="eyebrow">Villarrubia · Córdoba</p>
+          <p className="eyebrow">Clínica dental en Villarrubia · Córdoba</p>
           <h1 className="mt-5 text-[2.6rem] leading-[1.03] sm:text-6xl md:text-[4.1rem] font-serif">
             Tu sonrisa,
             <br />
@@ -106,7 +106,9 @@ export function Hero({ onBook }: { onBook: () => void }) {
               <img
                 ref={heroImg}
                 src={hero}
-                alt="Interior de la Clínica Dental S. Moya & R. Aranda"
+                alt="Interior de la Clínica Dental S. Moya & R. Aranda en Villarrubia, Córdoba"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full aspect-[4/5] object-cover will-change-transform"
               />
             </div>

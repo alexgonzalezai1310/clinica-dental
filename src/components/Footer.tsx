@@ -1,5 +1,6 @@
 import { Facebook, Instagram } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { MAPS_URL } from "@/lib/seo";
 
 export function Footer() {
   return (
@@ -28,8 +29,19 @@ export function Footer() {
           <div className="text-sm">
             <p className="font-medium text-white">Contacto</p>
             <ul className="mt-4 space-y-2.5 text-white/70">
+              <li>
+                <a
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Av. de la Pedanía, 202 · 14710 Villarrubia, Córdoba
+                </a>
+              </li>
               <li><a href="tel:+34957327291" className="hover:text-white transition-colors">957 327 291</a></li>
               <li><a href="mailto:info@moyayarandavillarrubia.com" className="hover:text-white transition-colors">info@moyayarandavillarrubia.com</a></li>
+              <li className="text-white/55">L-V: 9:00–13:00 y 16:30–20:00</li>
             </ul>
             <div className="mt-5 flex gap-3">
               <a href="#" aria-label="Instagram" className="w-9 h-9 rounded-full border border-white/20 grid place-items-center hover:bg-white/10 transition-colors"><Instagram className="w-4 h-4" /></a>

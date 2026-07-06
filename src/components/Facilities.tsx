@@ -78,7 +78,9 @@ export function Facilities() {
           <img
             ref={img}
             src={clinic}
-            alt="Instalaciones de la Clínica Dental S. Moya & R. Aranda"
+            alt="Instalaciones de la Clínica Dental S. Moya & R. Aranda en Villarrubia"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover will-change-transform"
           />
           {/* velo inferior para el texto */}

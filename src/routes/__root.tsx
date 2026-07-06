@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { BUSINESS, SEO_DESCRIPTION, SEO_TITLE, SITE_URL, dentistJsonLd, faqJsonLd } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -77,21 +78,46 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Clínica Dental S. Moya & R. Aranda · Tu sonrisa en las mejores manos" },
-      { name: "description", content: "Clínica dental en Villarrubia (Córdoba): ortodoncia invisible, implantes, estética dental y odontopediatría. Primera visita gratuita." },
-      { name: "author", content: "Clínica Dental S. Moya & R. Aranda" },
-      { property: "og:title", content: "Clínica Dental S. Moya & R. Aranda" },
-      { property: "og:description", content: "Salud bucodental de excelencia con un trato cercano en Villarrubia, Córdoba. Reserva tu cita online." },
+      { title: SEO_TITLE },
+      { name: "description", content: SEO_DESCRIPTION },
+      { name: "author", content: BUSINESS.name },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "theme-color", content: "#1e6e8c" },
+      // Geolocalización (SEO local)
+      { name: "geo.region", content: "ES-CO" },
+      { name: "geo.placename", content: `${BUSINESS.locality}, ${BUSINESS.region}` },
+      { name: "geo.position", content: `${BUSINESS.lat};${BUSINESS.lng}` },
+      { name: "ICBM", content: `${BUSINESS.lat}, ${BUSINESS.lng}` },
+      // Open Graph
+      { property: "og:title", content: SEO_TITLE },
+      { property: "og:description", content: SEO_DESCRIPTION },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:site_name", content: BUSINESS.name },
+      { property: "og:locale", content: "es_ES" },
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "900" },
+      { property: "og:image:alt", content: `Interior de la ${BUSINESS.name} en Villarrubia, Córdoba` },
+      // Twitter
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: SEO_TITLE },
+      { name: "twitter:description", content: SEO_DESCRIPTION },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: `${SITE_URL}/` },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" },
+    ],
+    scripts: [
+      // Datos estructurados: ficha de negocio local (Dentist) y FAQPage.
+      { type: "application/ld+json", children: dentistJsonLd() },
+      { type: "application/ld+json", children: faqJsonLd() },
     ],
   }),
   shellComponent: RootShell,
@@ -102,7 +128,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>

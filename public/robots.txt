@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clinica-dental.alex-gonzalez-ai-1310.workers.dev/sitemap.xml
