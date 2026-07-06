@@ -15,9 +15,6 @@ import { TeethCloseup } from "@/components/Teeth";
 
 const MOUTH_ORIGIN = "62% 50%";
 
-const GRAIN =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
-
 const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const seg = (p: number, i: number, o: number) => clamp((p - i) / (o - i));
@@ -51,8 +48,9 @@ export function BackgroundFX() {
       const teethScale = lerp(1.35, 1, seg(p, 0.52, 0.95));
       const teethBlur = lerp(12, 0, seg(p, 0.55, 0.8));
 
-      // El velo de legibilidad se aligera al final para lucir la dentadura.
-      const veilO = lerp(1, 0.55, seg(p, 0.7, 1));
+      // Velo mínimo ("niebla casi inexistente"): apenas un matiz para no
+      // perder del todo el texto, aligerándose aún más al final.
+      const veilO = lerp(0.4, 0.18, seg(p, 0.5, 1));
 
       if (scene.current) {
         scene.current.style.transform = `scale(${sceneScale.toFixed(3)})`;
@@ -104,21 +102,9 @@ export function BackgroundFX() {
         }}
       />
 
-      {/* Velo para legibilidad (se aligera al final) */}
-      <div
-        ref={veil}
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, color-mix(in srgb, var(--background) 68%, transparent), color-mix(in srgb, var(--background) 80%, transparent))",
-        }}
-      />
-
-      {/* Grano sutil */}
-      <div
-        className="absolute inset-0 opacity-[0.05] mix-blend-multiply"
-        style={{ backgroundImage: GRAIN, backgroundSize: "150px 150px" }}
-      />
+      {/* Única capa: niebla tenue para no perder el texto (opacidad ajustada
+          en tiempo real; se aligera al final para lucir la dentadura). */}
+      <div ref={veil} className="absolute inset-0" style={{ background: "var(--background)" }} />
     </div>
   );
 }
